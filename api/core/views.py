@@ -16,6 +16,8 @@ class DocumentViewSet(
     serializer_class = DocumentSerializer
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    ordering_fields = ['key', 'num_acordao', 'ano_acordao']
+    
     filterset_fields = [
         'key', 'num_acordao', 'ano_acordao', 'colegiado', 'area',
         'tema', 'subtema', 'tipo_processo', 'tipo_recurso',

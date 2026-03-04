@@ -36,11 +36,26 @@ projetos6/
 
 ## Setup
 
-### 1. Create and activate the virtual environment
+### 1. Install uv
 
+**Linux / macOS**
 ```bash
-uv venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Windows (PowerShell)**
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+**via pip** (any platform)
+```bash
+pip install uv
+```
+
+After installing, restart your shell and verify:
+```bash
+uv --version
 ```
 
 ### 2. Install dependencies
