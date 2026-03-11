@@ -1,69 +1,40 @@
-Essa estratégia de **Ingestão em Lote (Bulk)** com o padrão **Adapter** é ideal para garantir a escalabilidade do dataset e a manutenibilidade do código, permitindo que o sistema suporte o **DataJud** agora e outras fontes (como diários oficiais ou APIs de tribunais específicos) no futuro.
+This bulk ingestion strategy with the **Adapter** pattern ensures scalability and maintainability, supporting **DataJud** now and other sources (official gazettes, court APIs) in the future.
 
-Aqui está a estruturação da **Engenharia Reversa** focada nesse fluxo lógico:
+Here is the **Reverse Engineering** structure for this logical flow:
 
-### 3. Engenharia Reversa e Lógica de Programação (O "Como")
+### 3. Reverse Engineering and Programming Logic (The "How")
 
-#### **A. Input de Dados e Fontes**
+#### **A. Data Input and Sources**
 
-* 
-**Como o dado entra:** O dado entra no sistema através de requisições **HTTP GET/POST** para o endpoint `_search` do DataJud. O sistema utiliza um parâmetro dinâmico de `size` (ex: 50) para extrair o volume máximo de *matches* permitido por requisição, otimizando a coleta de processos do **TRT6**.
+* **Data Entry:** Data enters the system through **HTTP GET/POST** requests to the DataJud `_search` endpoint. The system uses a dynamic `size` parameter (e.g., 50) to extract the maximum number of matches per request, optimizing case collection from **TRT6**.
 
+* **External Sources:** The feature depends on the **CNJ Public API (DataJud)**. The system implements the **Adapter** pattern to translate the API's native JSON (such as `subjects` and `movements` fields) into a unified interface for the internal dataset.
 
-* **Fontes Externas:** A funcionalidade depende da **API Pública do CNJ (DataJud)**. O sistema implementa o padrão **Adapter** para traduzir o JSON nativo da API (como os campos `assuntos` e `movimentos`) em uma interface única e padronizada para o dataset interno.
+#### **B. Processing and Business Logic (Backend)**
 
+* **Triggers:** The flow is triggered by a synchronization job that sends the topic list and receives the data batch from the API.
 
+* **Algorithms:**
+    * **Deduplication:** A method receives the Adapter's object list and performs a set difference operation, comparing the `caseNumber` with existing database records to filter only new items.
+    * **Vectorization:** After filtering, new records pass through **NLP** models to generate **embeddings** from summaries before persistence.
 
-#### **B. Processamento e Lógica de Negócio (Backend)**
+* **Data Structure:** The system uses a **hybrid** architecture:
+    * **Relational:** Where **Bulk Create** executes to save metadata (amounts, dates, courts) atomically and performantly.
+    * **Vector:** Where corresponding vectors are stored to enable similarity search.
 
-* 
-**Gatilhos (Triggers):** O fluxo é disparado por um job de sincronização que envia a lista de tópicos e recebe o lote de dados da API.
+#### **C. Performance and Feedback (Frontend)**
 
+* **Interface States:** The **SPA** uses **skeleton screens** to indicate batch processing progress and duplicate verification status in the backend.
 
-* **Algoritmos:**
-* 
-**Deduplicação:** Um método recebe a lista de objetos do Adapter e realiza uma operação de conjunto (*set difference*) comparando o `numeroProcesso` recebido com os registros existentes no banco de dados para filtrar apenas os novos itens.
-
-
-* 
-**Vetorização:** Após o filtro, os novos registros passam por modelos de **NLP** para gerar **embeddings** a partir das ementas antes da persistência.
-
-
-
-
-* 
-**Estrutura de Dados:** O sistema utiliza uma estrutura **híbrida**:
-
-
-* 
-**Relacional:** Onde é executado o **Bulk Create** para salvar os metadados (valores, datas e varas) de forma atômica e performática.
-
-
-* 
-**Vetorial:** Onde são armazenados os vetores correspondentes para habilitar a busca por similaridade.
-
-
-
-
-
-#### **C. Performance e Feedback (Frontend)**
-
-* 
-**Estados da Interface:** A aplicação, sendo uma **SPA**, utiliza **esqueletos de carregamento (skeletons)** para indicar o progresso do processamento em lote e da verificação de duplicidade no backend.
-
-
-* 
-**Atualização em Tempo Real:** O frontend utiliza chamadas **HTTP assíncronas** para atualizar os contadores do dataset e os dashboards de jurimetria assim que o **Bulk Create** é confirmado pelo servidor, garantindo que o usuário visualize o crescimento da base de dados sem recarregar a página.
-
-
+* **Real-Time Updates:** The frontend uses **asynchronous HTTP calls** to update dataset counters and jurimetrics dashboards once the **Bulk Create** is confirmed by the server, ensuring users see database growth without page reload.
 
 ---
 
-**Mapeamento de Fluxo do Backend:**
+**Backend Flow Mapping:**
 
-1. **Request:** Busca 50 registros por tópico no DataJud.
-2. **Adapter:** Normaliza o JSON para a interface `ProcessoTrabalhista`.
-3. **Filter:** `get_non_existent(lista_api)` -> retorna apenas IDs inéditos no DB.
-4. **Bulk Create:** Salva o lote de novos processos em uma única transação.
+1. **Request:** Fetch 50 records per topic from DataJud.
+2. **Adapter:** Normalize JSON to the `LaborCase` interface.
+3. **Filter:** `get_non_existent(api_list)` → returns only new IDs.
+4. **Bulk Create:** Saves new cases in a single transaction.
 
-**Gostaria que eu ajudasse a definir a interface única do seu Adapter para garantir que campos como "Indenização por Dano Moral" sejam sempre mapeados da mesma forma, independente da API de origem?**
+Would you like help defining a unified Adapter interface to ensure fields like "Moral Damage Compensation" map consistently across sources?

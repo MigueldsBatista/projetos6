@@ -11,9 +11,9 @@ Aqui está um mapeamento estruturado de requisitos para essa solução de busca 
 * **Busca Semântica (Vetorial):** O usuário deve pesquisar por linguagem natural (ex: "trabalho 12h sem intervalo") e o sistema retornar casos com o mesmo contexto jurídico, não apenas palavras-chave.
 * **Cálculo de Similaridade:** Exibir um "Score de Similaridade" entre o relato do usuário e os acórdãos encontrados.
 * **Extração de Padrões:** Identificar automaticamente nos resultados:
-* Percentual de procedência (Sucesso).
-* Valor médio de indenização para aquele tema.
-* Tempo médio de tramitação.
+    * Percentual de procedência (Sucesso).
+    * Valor médio de indenização para aquele tema.
+    * Tempo médio de tramitação.
 
 
 
