@@ -28,3 +28,12 @@ class CaptchaSession:
     token_desafio: str        # Token do desafio captcha
     token_captcha: str        # Token resultante após resolver o captcha
     captcha_text: str         # Texto reconhecido pelo OCR
+
+
+@dataclass
+class CaptchaPdfCapture:
+    """Resultado completo do fluxo com o PDF interceptado no navegador."""
+    session: CaptchaSession
+    pdf_bytes: bytes
+    pdf_url: str
+    content_type: str

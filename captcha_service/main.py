@@ -1,19 +1,10 @@
-"""
-Ponto de entrada principal do pje-scraper.
-
-Pré-requisitos:
-  pip install -e captcha_service/
-  playwright install chromium
-
-Uso:
-    python main.py 0000573-11.2025.5.06.0021
-    python main.py 0000573-11.2025.5.06.0021 1 --no-headless
-"""
-
 import json
 import sys
+from pathlib import Path
 
 from pje_scraper import PjePipeline
+
+DOCUMENTS_DIR = Path(__file__).resolve().parent / "documents"
 
 
 def main():
@@ -37,22 +28,38 @@ def main():
     print(f"    tokenDesafio : {session.token_desafio}")
     print(f"    tokenCaptcha : {session.token_captcha}")
 
-    print("\n[*] Buscando documentos do processo...")
+    print("\n[*] Baixando íntegra completa via endpoint /processos/{id}/integra...")
+    http_download_ok = False
     try:
         resp = pipeline.fetch_with_token(session)
         content_type = resp.headers.get("content-type", "")
         print(f"    Status       : {resp.status_code}")
+        print(f"    Content-Type : {content_type}")
         if "application/json" in content_type:
-            print(f"    Body (JSON)  : {json.dumps(resp.json(), indent=2, ensure_ascii=False)[:500]}")
+            preview = json.dumps(resp.json(), indent=2, ensure_ascii=False)[:500]
+            print(f"    Body (JSON)  : {preview}")
         elif "application/pdf" in content_type:
-            out = f"{session.numero_processo.replace('/', '_')}.pdf"
-            with open(out, "wb") as f:
-                f.write(resp.content)
-            print(f"    PDF salvo em : {out}")
+            print("    Body (raw)   : <PDF binary omitted>")
         else:
             print(f"    Body (raw)   : {resp.text[:300]}")
+        out = pipeline.save_http_response(session, resp)
+        print(f"    Arquivo salvo: {out}")
+        http_download_ok = resp.status_code == 200
     except Exception as e:
-        print(f"[!] Erro ao buscar documentos: {e}")
+        print(f"[!] Erro ao baixar íntegra via HTTP: {e}")
+
+    if http_download_ok:
+        return
+
+    print("\n[*] Fallback opcional: capturar o retorno da íntegra direto do navegador...")
+    try:
+        capture = pipeline.resolve_and_capture_document(numero, grau=grau)
+        out = pipeline.save_captured_document(capture)
+        print(f"    Content-Type : {capture.content_type}")
+        print(f"    URL integra  : {capture.pdf_url}")
+        print(f"    Arquivo salvo: {out}")
+    except Exception as e:
+        print(f"    [!] Fallback falhou (sem impactar o download HTTP): {e}")
 
 
 if __name__ == "__main__":

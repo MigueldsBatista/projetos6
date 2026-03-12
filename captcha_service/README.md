@@ -44,7 +44,7 @@ tokenCaptcha : xyz789...
 ## Uso — script principal
 
 ```bash
-# Via main.py (inclui também a chamada à API do PJe com o tokenCaptcha)
+# Via main.py (captura o PDF final interceptando o fetch do navegador)
 python captcha_service/main.py 0000573-11.2025.5.06.0021
 python captcha_service/main.py 0000573-11.2025.5.06.0021 1 --no-headless
 ```
@@ -58,6 +58,11 @@ pipeline = PjePipeline()                          # headless=True por padrão
 session = pipeline.resolve("0000573-11.2025.5.06.0021", grau="1")
 
 print(session.token_captcha)   # token pronto para a API
+
+# Fluxo recomendado: capturar o PDF no response que o navegador já faz
+capture = pipeline.resolve_and_capture_pdf("0000573-11.2025.5.06.0021", grau="1")
+path = pipeline.save_captured_pdf(capture)
+print(path)
 
 # Opcional: buscar documentos do processo diretamente
 resp = pipeline.fetch_with_token(session)

@@ -8,4 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Captcha runtime artifacts
+captcha_log/
+debug_captcha_page*.png
 juristcu.db
