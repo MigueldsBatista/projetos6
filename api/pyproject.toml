@@ -12,4 +12,5 @@ dependencies = [
     "hf>=1.5.0",
     "pandas>=3.0.1",
     "pydantic>=2.12.5",
+    "pypdf>=6.9.1",
 ]

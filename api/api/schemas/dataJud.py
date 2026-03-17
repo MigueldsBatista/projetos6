@@ -1,56 +1,8 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any
 
 from pydantic import BaseModel, Field
-
-
-class Model(BaseModel):
-    took: int
-    timed_out: bool
-    _shards: _Shards
-    hits: Hits
-
-
-class Hits(BaseModel):
-    total: Total
-    max_score: float
-    hits: List[Hit]
-
-
-class Hit(BaseModel):
-    _index: str
-    _id: str
-    _score: float
-    _source: _Source
-
-class _Source(BaseModel):
-    numeroProcesso: str
-    classe: Classe
-    sistema: Sistema
-    formato: Formato
-    tribunal: str
-    dataHoraUltimaAtualizacao: str
-    grau: str
-    _timestamp: str = Field(..., alias='@timestamp')
-    dataAjuizamento: str
-    movimentos: List[Movimento]
-    id: str
-    nivelSigilo: int
-    orgaoJulgador: OrgaoJulgador1
-    assuntos: List[Assunto]
-
-
-class _Shards(BaseModel):
-    total: int
-    successful: int
-    skipped: int
-    failed: int
-
-
-class Total(BaseModel):
-    value: int
-    relation: str
 
 
 class Classe(BaseModel):
@@ -70,9 +22,9 @@ class Formato(BaseModel):
 
 class ComplementosTabelado(BaseModel):
     codigo: int
-    valor: int
+    valor: int | None = None
     nome: str
-    descricao: str
+    descricao: str | None = None
 
 
 class OrgaoJulgador(BaseModel):
@@ -81,11 +33,11 @@ class OrgaoJulgador(BaseModel):
 
 
 class Movimento(BaseModel):
-    complementosTabelados: Optional[List[ComplementosTabelado]] = None
+    complementosTabelados: list[ComplementosTabelado] = []
     codigo: int
     nome: str
     dataHora: str
-    orgaoJulgador: Optional[OrgaoJulgador] = None
+    orgaoJulgador: OrgaoJulgador | None = None
 
 
 class OrgaoJulgador1(BaseModel):
@@ -98,5 +50,56 @@ class Assunto(BaseModel):
     codigo: int
     nome: str
 
+
+class Source(BaseModel):
+    numeroProcesso: str
+    classe: Classe
+    sistema: Sistema
+    formato: Formato
+    tribunal: str
+    dataHoraUltimaAtualizacao: str
+    grau: str
+    timestamp: str = Field(..., alias='@timestamp')
+    dataAjuizamento: str
+    movimentos: list[Movimento]
+    id: str
+    nivelSigilo: int
+    orgaoJulgador: OrgaoJulgador1
+    assuntos: list[Assunto]
+
+
+class SearchHit(BaseModel):
+    source: Source = Field(alias="_source")
+
+
+class SearchHits(BaseModel):
+    hits: list[SearchHit]
+
+
+class SearchResponse(BaseModel):
+    hits: SearchHits
+
+
+def parse_sources(payload: SearchResponse | dict[str, Any]) -> list[Source]:
+    """Parse DataJud search payload and return only the list of sources."""
+    response = payload if isinstance(payload, SearchResponse) else SearchResponse.model_validate(payload)
+    return [hit.source for hit in response.hits.hits]
+
+
+class MatchClause(BaseModel):
+    match: dict[str, str]
+
+
+class BoolQuery(BaseModel):
+    must: List[MatchClause]
+
+
+class QueryClause(BaseModel):
+    bool: BoolQuery
+
+
+class SearchRequestPayload(BaseModel):
+    size: int = 10
+    query: QueryClause
 
 
