@@ -91,7 +91,7 @@ class MatchClause(BaseModel):
 
 
 class BoolQuery(BaseModel):
-    must: List[MatchClause]
+    must: list[MatchClause]
 
 
 class QueryClause(BaseModel):
