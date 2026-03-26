@@ -12,7 +12,8 @@ Este documento consolida os principais documentos do projeto em um unico lugar p
 6. [Topicos](#topicos)
 7. [README do Captcha Service](#readme-do-captcha-service)
 8. [Instrucoes Internas de OCR](#instrucoes-internas-de-ocr)
-9. [Documentos PDF de Referencia](#documentos-pdf-de-referencia)
+9. [Integracao entre captcha_service e ingestion_service](#integracao-entre-captcha_service-e-ingestion_service)
+10. [Documentos PDF de Referencia](#documentos-pdf-de-referencia)
 
 ## Como Usar Este Documento
 
@@ -530,6 +531,21 @@ applyTo:
 - Validate changes against captcha_service/data/images.json whenever OCR behavior changes.
 - In diagnostics, report raw OCR output and normalized output separately.
 - If a normalization rule is added, include a short test-visible trace that helps confirm the rule was applied.
+
+---
+
+## Integracao entre captcha_service e ingestion_service
+
+Fonte: [docs/Integracao_Captcha_Ingestion.md](Integracao_Captcha_Ingestion.md)
+
+Este documento define uma proposta de interface entre os servicos com:
+
+- arquitetura em camadas (domain/application/infrastructure/interface)
+- contratos de dados entre captura e ingestao
+- aplicacao de SRP, OCP e DIP com portas e adaptadores
+- opcoes de integracao (in-process, REST interno, eventos/fila)
+- plano evolutivo em 3 fases
+- praticas de idempotencia, observabilidade, resiliencia e testes
 
 ---
 

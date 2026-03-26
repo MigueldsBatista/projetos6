@@ -10,6 +10,7 @@
   "classe_nome": "Acao Trabalhista - Rito Sumarissimo",
   "orgao_julgador_nome": "1a Vara do Trabalho do Cabo",
   "data_ajuizamento": "2025-04-15",
+  "resumo_causa": "ABC what happened"
   "tipo_ato_principal": "acordo_homologado",
   "decisao_resumo": "Acordo homologado com quitacao geral e previsao de multa por inadimplencia.",
   "palavras_chave_processo": ["pagamento de salario", "acordo judicial", "quitacao geral", "multa por inadimplencia"],

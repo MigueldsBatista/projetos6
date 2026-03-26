@@ -7,6 +7,10 @@ from pje_scraper import PjePipeline
 DOCUMENTS_DIR = Path(__file__).resolve().parent / "documents"
 
 
+def run_pipeline(numero: str, grau: str = 1, headless: bool = True):
+    pipeline = PjePipeline(headless=headless)
+    return pipeline.resolve(numero, grau=grau)
+
 def main():
     numero = sys.argv[1] if len(sys.argv) > 1 else "0000573-11.2025.5.06.0021"
     grau = sys.argv[2] if len(sys.argv) > 2 else "1"

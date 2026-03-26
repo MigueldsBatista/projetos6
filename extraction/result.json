@@ -1,0 +1,31 @@
+{
+  "numero_processo": "0000256-48.2025.5.06.0171",
+  "tribunal": "TRT6",
+  "classe_nome": "Ação Trabalhista - Rito Sumaríssimo",
+  "orgao_julgador_nome": "1ª Vara do Trabalho do Cabo",
+  "data_ajuizamento": "2025-04-15",
+  "resumo_causa": "Ação trabalhista relacionada a salário devido por Leandro Marcionilo de Oliveira, empregado da ECAM Terraplenagem e Pavimentação Ltda.",
+  "tipo_ato_principal": "acordo_homologado",
+  "decisao_resumo": "Juiz concede prazo para emenda da inicial, determina ajustes no valor da causa e notifica a reclamada. Após acordo homologado, o reclamante recebe R$ 2.500,00 em parcela única.",
+  "palavras_chave_processo": [
+    "salário",
+    "obra",
+    "reclamante",
+    "reclamada",
+    "justiça do trabalho"
+  ],
+  "status_processo": "arquivado",
+  "desfecho": "acordo_favoravel",
+  "resultado_reclamante": "ganhou",
+  "palavras_chave_desfecho": [
+    "acordo",
+    "pagamento",
+    "justiça",
+    "reclamante",
+    "resolução"
+  ],
+  "valor_causa": 31399.70,
+  "custas_valor_total": 50.00,
+  "custas_percentual": 2.00,
+  "null_values": null
+}
