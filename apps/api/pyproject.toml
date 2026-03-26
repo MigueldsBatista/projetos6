@@ -1,16 +1,20 @@
 [project]
-name = "projetos6"
+name = "api"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "shared", # Para usar os Schemas ao validar o que recebe dos Workers e para salvar o caminho do PDF no S3.
+
     "datasets>=4.6.1",
     "django>=6.0.3",
     "django-filter",
     "djangorestframework>=3.16.1",
     "hf>=1.5.0",
     "pandas>=3.0.1",
-    "pydantic>=2.12.5",
     "pypdf>=6.9.1",
 ]
+
+[tool.uv.sources]
+shared = { workspace = true }

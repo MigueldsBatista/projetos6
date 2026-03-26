@@ -1,0 +1,12 @@
+[project]
+name = "ingestion"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "shared" # Para validar os metadados que ele buscou antes de colocar na fila.
+]
+
+[tool.uv.sources]
+shared = { workspace = true } # Indica que deve buscar no monorepo
