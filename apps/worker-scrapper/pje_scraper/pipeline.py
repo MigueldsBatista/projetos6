@@ -55,19 +55,6 @@ class PjePipeline:
             pdf_wait_ms=pdf_wait_ms,
         )
 
-    def resolve_and_capture_pdf(
-        self,
-        numero_processo: str,
-        grau: str = "1",
-        pdf_wait_ms: int = 20_000,
-    ) -> CaptchaPdfCapture:
-        """Compatibilidade retroativa para o nome antigo do método."""
-        return self.resolve_and_capture_document(
-            numero_processo,
-            grau=grau,
-            pdf_wait_ms=pdf_wait_ms,
-        )
-
     def save_captured_document(
         self,
         capture: CaptchaPdfCapture,
@@ -155,21 +142,3 @@ class PjePipeline:
         if "text/html" in normalized:
             return ".html"
         return ".bin"
-
-
-def main() -> None:
-    """Entry point do comando 'pje-scraper' instalado via pyproject.toml."""
-    import sys
-
-    numero = sys.argv[1] if len(sys.argv) > 1 else "0000573-11.2025.5.06.0021"
-    grau = sys.argv[2] if len(sys.argv) > 2 else "1"
-    headless = "--no-headless" not in sys.argv
-
-    pipeline = PjePipeline(headless=headless)
-    session = pipeline.resolve(numero, grau=grau)
-
-    print(f"processo_id  : {session.processo_id}")
-    print(f"grau         : {session.grau}")
-    print(f"captcha_text : {session.captcha_text}")
-    print(f"tokenDesafio : {session.token_desafio}")
-    print(f"tokenCaptcha : {session.token_captcha}")

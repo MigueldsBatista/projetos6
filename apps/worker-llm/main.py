@@ -63,7 +63,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 llm = ChatOpenAI(
-    base_url="http://172.28.192.1:1234/v1",
+    base_url="http://172.26.192.1:1234/v1",
     api_key="lm-studio",
     model_name="google/gemma-3-4b"
 )
