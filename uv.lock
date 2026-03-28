@@ -14,10 +14,10 @@ resolution-markers = [
 members = [
     "api",
     "ingestion",
-    "pje-scraper",
     "projeto-trt6",
     "shared",
     "worker-llm",
+    "worker-scrapper",
 ]
 
 [[package]]
@@ -785,13 +785,19 @@ wheels = [
 [[package]]
 name = "ingestion"
 version = "0.1.0"
-source = { virtual = "apps/ingestion" }
+source = { editable = "apps/ingestion" }
 dependencies = [
+    { name = "celery" },
     { name = "shared" },
+    { name = "worker-scrapper" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "shared", editable = "shared" }]
+requires-dist = [
+    { name = "celery", specifier = ">=5.6.3" },
+    { name = "shared", editable = "shared" },
+    { name = "worker-scrapper", editable = "apps/worker-scrapper" },
+]
 
 [[package]]
 name = "iniconfig"
@@ -1485,40 +1491,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pje-scraper"
-version = "0.1.0"
-source = { virtual = "apps/worker-scrapper" }
-dependencies = [
-    { name = "ddddocr" },
-    { name = "httpx" },
-    { name = "numpy" },
-    { name = "opencv-python" },
-    { name = "playwright" },
-    { name = "selenium" },
-    { name = "shared" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pytest" },
-    { name = "pytest-playwright" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ddddocr", specifier = ">=1.6.1" },
-    { name = "httpx", specifier = ">=0.27" },
-    { name = "numpy", specifier = ">=1.24" },
-    { name = "opencv-python", specifier = ">=4.8" },
-    { name = "playwright", specifier = ">=1.44" },
-    { name = "pytest", marker = "extra == 'dev'" },
-    { name = "pytest-playwright", marker = "extra == 'dev'" },
-    { name = "selenium", specifier = ">=4.41.0" },
-    { name = "shared", editable = "shared" },
-]
-provides-extras = ["dev"]
-
-[[package]]
 name = "playwright"
 version = "1.58.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1550,6 +1522,20 @@ wheels = [
 name = "projeto-trt6"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "ingestion" },
+    { name = "shared" },
+    { name = "worker-llm" },
+    { name = "worker-scrapper" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ingestion", editable = "apps/ingestion" },
+    { name = "shared", editable = "shared" },
+    { name = "worker-llm", editable = "apps/worker-llm" },
+    { name = "worker-scrapper", editable = "apps/worker-scrapper" },
+]
 
 [[package]]
 name = "prompt-toolkit"
@@ -2358,7 +2344,7 @@ wheels = [
 [[package]]
 name = "worker-llm"
 version = "0.1.0"
-source = { virtual = "apps/worker-llm" }
+source = { editable = "apps/worker-llm" }
 dependencies = [
     { name = "celery" },
     { name = "langchain" },
@@ -2377,6 +2363,42 @@ requires-dist = [
     { name = "requests", specifier = ">=2.33.0" },
     { name = "shared", editable = "shared" },
 ]
+
+[[package]]
+name = "worker-scrapper"
+version = "0.1.0"
+source = { editable = "apps/worker-scrapper" }
+dependencies = [
+    { name = "celery" },
+    { name = "ddddocr" },
+    { name = "httpx" },
+    { name = "numpy" },
+    { name = "opencv-python" },
+    { name = "playwright" },
+    { name = "selenium" },
+    { name = "shared" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-playwright" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "celery", specifier = ">=5.6.3" },
+    { name = "ddddocr", specifier = ">=1.6.1" },
+    { name = "httpx", specifier = ">=0.27" },
+    { name = "numpy", specifier = ">=1.24" },
+    { name = "opencv-python", specifier = ">=4.8" },
+    { name = "playwright", specifier = ">=1.44" },
+    { name = "pytest", marker = "extra == 'dev'" },
+    { name = "pytest-playwright", marker = "extra == 'dev'" },
+    { name = "selenium", specifier = ">=4.41.0" },
+    { name = "shared", editable = "shared" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "wsproto"

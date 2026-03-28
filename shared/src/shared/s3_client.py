@@ -1,18 +1,6 @@
-from typing import Protocol
-
 from minio import Minio
 
-
-class S3Protocol(Protocol):
-    def create_bucket(self, bucket_name: str) -> None: ...
-    def upload_object(self, bucket_name: str, object_name: str, file_path: str) -> None: ...
-    def get_object(self, bucket_name: str, object_name: str, file_path: str) -> None: ...
-    def list_objects(self, bucket_name: str, prefix: str = "", recursive: bool = True) -> list: ...
-    def delete_object(self, bucket_name: str, object_name: str) -> None: ...
-    def delete_bucket(self, bucket_name: str) -> None: ...
-
-
-class S3Client(S3Protocol):
+class S3Client:
     def __init__(self, endpoint: str, access_key: str, secret_key: str, secure: bool = True) -> None:
         self.client: Minio = Minio(
             endpoint,
@@ -41,5 +29,5 @@ class S3Client(S3Protocol):
         self.client.remove_bucket(bucket_name)
 
 
-def get_s3_client() -> S3Protocol:
+def get_s3_client() -> S3Client:
     return S3Client("localhost:9000", "minioadmin", "minioadmin", secure=False)

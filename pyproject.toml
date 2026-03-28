@@ -4,7 +4,18 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "shared",
+    "worker-llm",
+    "ingestion",
+    "worker-scrapper"
+]
+
+[tool.uv.sources]
+shared = { workspace = true }
+worker-llm = { workspace = true }
+ingestion = { workspace = true }
+worker-scrapper = { workspace = true }
 
 [tool.uv.workspace]
 members = [

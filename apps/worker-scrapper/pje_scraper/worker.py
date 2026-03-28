@@ -1,8 +1,8 @@
 import tempfile
 
 from pje_scraper import PjePipeline
-from shared.s3_client import get_s3_client
 from shared.celery_client import app
+from shared.s3_client import get_s3_client
 
 client = get_s3_client()
 
