@@ -56,7 +56,7 @@ class PjeScraper:
     # ------------------------------------------------------------------ #
 
 
-    
+
     def get_token_captcha(
         self,
         numero_processo: str,

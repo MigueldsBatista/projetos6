@@ -8,7 +8,8 @@ dependencies = [
     "shared",
     "worker-llm",
     "ingestion",
-    "worker-scrapper"
+    "worker-scrapper",
+    "ruff>=0.15.8",
 ]
 
 [tool.uv.sources]
@@ -25,3 +26,40 @@ members = [
     "apps/worker-scrapper",
     "apps/api",
 ]
+
+[tool.ruff]
+# Enable all rules in the default rule set and the Django-specific rule set
+select = ["E", "F", "W", "I", "UP", "B", "C4", "A", "DJ", "S", "N"]
+# I = isort (import sorting)
+# UP = pyupgrade (modernize code)
+# B = flake8-bugbear (find likely bugs or design issues)
+# C4 = flake8-comprehensions
+# A = flake8-builtins
+# DJ = flake8-django (Django-specific rules)
+# S = flake8-bandit (security checks)
+# N = pep8-naming (naming conventions)
+
+# Exclude migration files and virtual environments
+exclude = [
+    ".venv",
+    "venv",
+    "migrations",
+    "__pycache__",
+    "env",
+    ".mypy_cache",
+    ".pytest_cache",
+]
+
+# Set the line length (Black's default)
+line-length = 120
+
+# Target Python version
+target-version = "py312"
+
+# # Adjust max complexity if needed
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.format]
+# Enable docstring formatting (optional)
+docstring-code-format = true

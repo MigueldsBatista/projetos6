@@ -1,5 +1,6 @@
 [project.scripts]
-worker-llm-main = "main:main"
+llm-process = "main:main"
+
 [project]
 name = "worker-llm"
 version = "0.1.0"

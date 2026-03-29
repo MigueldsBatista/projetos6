@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
 
 @dataclass
@@ -8,7 +7,7 @@ class GrauInfo:
     grau: str               # "1", "2", etc.
     label: str              # "PJe 1° Grau", "PJe 2° Grau"
     url: str                # URL do link de acesso ao grau
-    processo_id: Optional[str] = None  # ID interno extraído após navegar
+    processo_id: str | None = None  # ID interno extraído após navegar
 
 
 @dataclass
@@ -16,7 +15,7 @@ class ProcessInfo:
     """Resultado da busca por número de processo."""
     numero: str
     graus: list[GrauInfo] = field(default_factory=list)
-    single_url: Optional[str] = None   # Set when there's only one grau (no selection needed)
+    single_url: str | None = None   # Set when there's only one grau (no selection needed)
 
 
 @dataclass

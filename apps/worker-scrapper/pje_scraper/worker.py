@@ -17,4 +17,3 @@ def run_pipeline(numero: str, grau: str = "1", headless: bool = True):
         tmp.write(response.content)
         tmp_path = tmp.name
     client.upload_object("pje-documents", f"{session.numero_processo}.pdf", tmp_path)
-    

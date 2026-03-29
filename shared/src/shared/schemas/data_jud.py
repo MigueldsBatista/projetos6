@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -31,11 +32,11 @@ class OrgaoJulgador(BaseModel):
 class Movimento(BaseModel):
     codigo: int
     nome: str
-    dataHora: str
-    orgaoJulgador: OrgaoJulgador | None = None
-    
+    data_hora: str = Field(..., alias="dataHora")
+    orgao_julgador: OrgaoJulgador | None = Field(default=None, alias="orgaoJulgador")
+
 class OrgaoJulgador1(BaseModel):
-    codigoMunicipioIBGE: int
+    codigo_municipio_ibge: int = Field(..., alias="codigoMunicipioIBGE")
     codigo: int
     nome: str
 
@@ -46,19 +47,19 @@ class Assunto(BaseModel):
 
 
 class Source(BaseModel):
-    numeroProcesso: str
+    numero_processo: str = Field(..., alias="numeroProcesso")
     classe: Classe
     sistema: Sistema
     formato: Formato
     tribunal: str
-    dataHoraUltimaAtualizacao: str
+    data_hora_ultima_atualizacao: str = Field(..., alias="dataHoraUltimaAtualizacao")
     grau: str
     timestamp: str = Field(..., alias='@timestamp')
-    dataAjuizamento: str
+    data_ajuizamento: str = Field(..., alias="dataAjuizamento")
     movimentos: list[Movimento]
     id: str
-    nivelSigilo: int
-    orgaoJulgador: OrgaoJulgador1
+    nivel_sigilo: int = Field(..., alias="nivelSigilo")
+    orgao_julgador: OrgaoJulgador1 = Field(..., alias="orgaoJulgador")
     assuntos: list[Assunto]
 
 
@@ -76,25 +77,31 @@ class SearchResponse(BaseModel):
 
 # ------------------ RESUMIDO ------------------
 
+class MovimentoResumido(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    nome: str
+    data_hora: str = Field(..., alias="dataHora")
+    orgao_julgador: str | None = Field(default=None, alias="orgaoJulgador")
+
+
 class ProcessoResumido(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    numeroProcesso: str | None = None
+    numero_processo: str | None = Field(default=None, alias="numeroProcesso")
     classe: str | None = None
     sistema: str | None = None
     formato: str | None = None
     tribunal: str | None = None
-    dataHoraUltimaAtualizacao: str | None = None
+    data_hora_ultima_atualizacao: str | None = Field(default=None, alias="dataHoraUltimaAtualizacao")
     grau: str | None = None
     timestamp: str = Field(..., alias='@timestamp')
-    dataAjuizamento: str | None = None
+    data_ajuizamento: str | None = Field(default=None, alias="dataAjuizamento")
     id: str | None = None
-    orgaoJulgador: str | None = None
+    orgao_julgador: str | None = Field(default=None, alias="orgaoJulgador")
     assuntos: list[str] | None = None
-    
-    # nivelSigilo: int | None = None
-    # movimentos: list[Movimento] | None = None
+    movimentos: list[MovimentoResumido] | None = None
 
 
 class ProcessoResumidoResponse(BaseModel):
     processos: list[ProcessoResumido]
+
