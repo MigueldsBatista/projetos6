@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 import requests
 from pje_scraper.worker import run_pipeline
 from shared.schemas.data_jud import (
@@ -8,6 +10,10 @@ from shared.schemas.data_jud import (
     ProcessoResumidoResponse,
     SearchResponse,
 )
+
+trigger = "--trigger" in sys.argv
+if trigger:
+    print("Running pipeline on TRIGGER MODE\n")
 
 topicos = [
     "Aposentadoria e Pensão",
@@ -116,8 +122,9 @@ def main():
 
     print(f"Arquivo processos_datajud.json salvo com {len(todos_processos)} processos.")
 
-    # for p in todos_processos:
-    #     run_pipeline.delay(p["numeroProcesso"], p["grau"])
+    if trigger:
+        for p in todos_processos:
+            run_pipeline.delay(p["numero_processo"], p["grau"])
 
 
 if __name__ == "__main__":
