@@ -10,6 +10,8 @@ dependencies = [
     "ingestion",
     "worker-scrapper",
     "ruff>=0.15.8",
+    "mypy>=1.19.1",
+    "django-stubs>=6.0.1",
 ]
 
 [tool.uv.sources]
@@ -57,9 +59,16 @@ line-length = 120
 target-version = "py312"
 
 # # Adjust max complexity if needed
-[tool.ruff.lint.mccabe]
-max-complexity = 10
+[tool.ruff.lint]
+# Plugin configs:
+flake8-quotes.inline-quotes = "single"
+mccabe.max-complexity = 6
+pydocstyle.convention = "google"
 
 [tool.ruff.format]
 # Enable docstring formatting (optional)
 docstring-code-format = true
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+

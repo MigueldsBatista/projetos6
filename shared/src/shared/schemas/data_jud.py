@@ -25,7 +25,8 @@ class ComplementosTabelado(BaseModel):
 
 
 class OrgaoJulgador(BaseModel):
-    codigo: str
+    codigo_municipio_ibge: int | None = Field(default=None, alias="codigoMunicipioIBGE", description="Código do município no IBGE, se aplicável")
+    codigo: int
     nome: str
 
 
@@ -34,11 +35,6 @@ class Movimento(BaseModel):
     nome: str
     data_hora: str = Field(..., alias="dataHora")
     orgao_julgador: OrgaoJulgador | None = Field(default=None, alias="orgaoJulgador")
-
-class OrgaoJulgador1(BaseModel):
-    codigo_municipio_ibge: int = Field(..., alias="codigoMunicipioIBGE")
-    codigo: int
-    nome: str
 
 
 class Assunto(BaseModel):
@@ -59,7 +55,7 @@ class Source(BaseModel):
     movimentos: list[Movimento]
     id: str
     nivel_sigilo: int = Field(..., alias="nivelSigilo")
-    orgao_julgador: OrgaoJulgador1 = Field(..., alias="orgaoJulgador")
+    orgao_julgador: OrgaoJulgador = Field(..., alias="orgaoJulgador")
     assuntos: list[Assunto]
 
 
@@ -89,8 +85,8 @@ class ProcessoResumido(BaseModel):
 
     numero_processo: str | None = Field(default=None, alias="numeroProcesso")
     classe: str | None = None
-    sistema: str | None = None
-    formato: str | None = None
+    # sistema: str | None = None
+    # formato: str | None = None
     tribunal: str | None = None
     data_hora_ultima_atualizacao: str | None = Field(default=None, alias="dataHoraUltimaAtualizacao")
     grau: str | None = None
