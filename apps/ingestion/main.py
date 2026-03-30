@@ -1,7 +1,16 @@
+import logging
+
+# Configuração básica de logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+logger = logging.getLogger("ingestion")
 from __future__ import annotations
-
+import logging
 import sys
-
 import requests
 from pje_scraper.worker import run_pipeline
 from shared.schemas.data_jud import (
@@ -17,25 +26,25 @@ if trigger:
 
 topicos = [
     "Aposentadoria e Pensão",
-    "Categoria Profissional Especial",
-    "Contrato Individual de Trabalho",
-    "Direito Coletivo do Trabalho",
-    "Direito de Greve / Lockout",
-    "Direito Individual do Trabalho",
-    "Direito Sindical e Questões Análogas",
-    "Duração do Trabalho",
-    "Férias",
-    "Outras Relações de Trabalho",
-    "Prescrição",
-    "Prescrição e Decadência no Direito do Trabalho",
-    "Questões de Alta Complexidade, Grande Impacto e Repercussão",
-    "Redução à Condição Análoga à de Escravo",
-    "Rescisão do Contrato de Trabalho",
-    "Rescisão do Contrato de Trabalho",
-    "Responsabilidade Civil do Empregador",
-    "Responsabilidade Solidária / Subsidiária",
-    "Sentença Normativa",
-    "Verbas Remuneratórias, Indenizatórias e Benefícios",
+    # "Categoria Profissional Especial",
+    # "Contrato Individual de Trabalho",
+    # "Direito Coletivo do Trabalho",
+    # "Direito de Greve / Lockout",
+    # "Direito Individual do Trabalho",
+    # "Direito Sindical e Questões Análogas",
+    # "Duração do Trabalho",
+    # "Férias",
+    # "Outras Relações de Trabalho",
+    # "Prescrição",
+    # "Prescrição e Decadência no Direito do Trabalho",
+    # "Questões de Alta Complexidade, Grande Impacto e Repercussão",
+    # "Redução à Condição Análoga à de Escravo",
+    # "Rescisão do Contrato de Trabalho",
+    # "Rescisão do Contrato de Trabalho",
+    # "Responsabilidade Civil do Empregador",
+    # "Responsabilidade Solidária / Subsidiária",
+    # "Sentença Normativa",
+    # "Verbas Remuneratórias, Indenizatórias e Benefícios",
 ]
 
 url = "https://api-publica.datajud.cnj.jus.br/api_publica_trt6/_search"
@@ -84,46 +93,77 @@ def fetch_for_topic(topic):
 
 
 def main():
+    """
+    Pipeline principal de ingestão:
+    1. Consulta tópicos no DataJud.
+    2. Salva/processos encontrados em JSON.
+    3. Envia/processos completos para API de deduplicação.
+    4. (Opcional) Dispara workers para extração PDF.
+
+    Pontos de extensão:
+    - Adicionar etapa de verificação de existência em nuvem/bucket.
+    - Modularizar etapas para facilitar manutenção.
+    - Adicionar métricas e monitoramento.
+    """
+    # TODO: Adicionar etapa de verificação dos processos que ainda não existem no bucket/cloud
+    # Exemplo: verificar existência de arquivos PDF antes de disparar workers
 
     import json
+
 
     total_processos = 0
     assuntos_sem_resultado = []
     todos_processos = []
-    print(f"Consultando {len(topicos)} assuntos do CNJ...")
+    logger.info(f"Consultando {len(topicos)} assuntos do CNJ...")
 
-    for assunto in topicos:
-        print(f"Consultando assunto: {assunto}")
 
+    try:
         response = fetch_for_topic(assunto)
         search_response = SearchResponse.model_validate(response)
+    except Exception as e:
+        logger.error(f"Erro ao consultar '{assunto}': {e}")
+        continue
 
-        processos = mapear_processos(search_response)
-        n = len(processos.processos)
+    processos = mapear_processos(search_response)
+    n = len(processos.processos)
 
-        print(f"  -> {n} processos encontrados para '{assunto}'")
-        total_processos += n
+    logger.info(f"  -> {n} processos encontrados para '{assunto}'")
+    total_processos += n
 
-        if n == 0:
-            assuntos_sem_resultado.append(assunto)
+    if n == 0:
+        assuntos_sem_resultado.append(assunto)
 
-        for p in processos.processos:
-            todos_processos.append(p.model_dump())
+    for p in processos.processos:
+        todos_processos.append(p.model_dump())
 
-    print(f"Total de processos encontrados: {total_processos}")
+    logger.info(f"Total de processos encontrados: {total_processos}")
 
     if assuntos_sem_resultado:
-        print("Assuntos sem resultados:")
+        logger.warning("Assuntos sem resultados:")
         for assunto in assuntos_sem_resultado:
-            print(f"  - {assunto}")
+            logger.warning(f"  - {assunto}")
 
     with open("processos_datajud.json", "w", encoding="utf-8") as f:
         json.dump(todos_processos, f, ensure_ascii=False, indent=2)
 
-    print(f"Arquivo processos_datajud.json salvo com {len(todos_processos)} processos.")
+    logger.info(f"Arquivo processos_datajud.json salvo com {len(todos_processos)} processos.")
+
+    # Enviar para API como JSON
+    import requests
+    try:
+        res = requests.post(
+            "http://localhost:8000/api/processos/deduplicar",
+            timeout=30,
+            json=todos_processos
+        )
+        res.raise_for_status()
+        logger.info(f"Resposta da API ({res.status_code}): {res.json()}")
+    except Exception as e:
+        logger.error(f"Erro ao enviar para API: {e}")
 
     if trigger:
         for p in todos_processos:
+            logger.info(f"Disparando worker para processo {p['numero_processo']} grau {p['grau']}")
             run_pipeline.delay(p["numero_processo"], p["grau"])
 
 
