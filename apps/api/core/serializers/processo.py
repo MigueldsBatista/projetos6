@@ -1,0 +1,116 @@
+
+from rest_framework import serializers
+
+from core.models.analise import Analise
+from core.models.assunto import Assunto
+from core.models.classe import Classe
+from core.models.orgao_julgador import OrgaoJulgador
+from core.models.palavra_chave import PalavraChave
+from core.models.processo import Processo
+from core.serializers.analise import AnaliseSerializer
+from core.serializers.assunto import AssuntoSerializer
+from core.serializers.classe import ClasseSerializer
+from core.serializers.orgao_julgador import OrgaoJulgadorSerializer
+
+
+class ProcessoResumoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Processo
+        fields = ["numero_processo", "grau"]
+
+class ProcessoSerializer(serializers.ModelSerializer):
+    classe = ClasseSerializer(required=False, allow_null=True)
+    orgao_julgador = OrgaoJulgadorSerializer(required=False, allow_null=True)
+    assuntos = AssuntoSerializer(many=True, required=False)
+    analise = AnaliseSerializer(required=False, allow_null=True)
+
+    class Meta:
+        model = Processo
+        fields = [
+            "id",
+            "numero_processo",
+            "classe",
+            "tribunal",
+            "data_hora_ultima_atualizacao",
+            "grau",
+            "data_ajuizamento",
+            "orgao_julgador",
+            "assuntos",
+            "analise",
+        ]
+
+    def create(self, validated_data: dict):
+        assuntos_data = validated_data.pop("assuntos", [])
+        analise_data = validated_data.pop("analise", None)
+        orgao_julgador_data = validated_data.pop("orgao_julgador", None)
+
+        classe_codigo = validated_data.get("classe", None)
+        if classe_codigo:
+            classe, _ = Classe.objects.get_or_create(codigo=classe_codigo)
+            validated_data["classe"] = classe
+
+        # Handle orgao_julgador
+        orgao_julgador: OrgaoJulgador | None = None
+        if orgao_julgador_data:
+            orgao_julgador, _ = OrgaoJulgador.objects.get_or_create(**orgao_julgador_data)
+            validated_data["orgao_julgador"] = orgao_julgador
+
+        # Handle analise
+        analise: Analise | None = None
+        if analise_data:
+            palavras_chave_data = analise_data.pop("palavras_chave", [])
+            analise = Analise.objects.create(**analise_data)
+            for palavra_data in palavras_chave_data:
+                palavra, _ = PalavraChave.objects.get_or_create(**palavra_data)
+                analise.palavras_chave.add(palavra)
+            validated_data["analise"] = analise
+
+        processo = Processo.objects.create(**validated_data)
+
+        # Handle assuntos
+        for assunto_data in assuntos_data:
+            assunto, _ = Assunto.objects.get_or_create(**assunto_data)
+            processo.assuntos.add(assunto)
+
+        return processo
+
+    def update(self, instance: Processo, validated_data: dict):
+        assuntos_data = validated_data.pop("assuntos", [])
+        analise_data = validated_data.pop("analise", None)
+        orgao_julgador_data = validated_data.pop("orgao_julgador", None)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        # Handle orgao_julgador
+        if orgao_julgador_data:
+            orgao_julgador, _ = OrgaoJulgador.objects.get_or_create(**orgao_julgador_data)
+            instance.orgao_julgador = orgao_julgador
+
+        # Handle analise
+        if analise_data:
+            palavras_chave_data = analise_data.pop("palavras_chave", [])
+            if instance.analise:
+                for attr, value in analise_data.items():
+                    setattr(instance.analise, attr, value)
+                instance.analise.save()
+            else:
+                instance.analise = Analise.objects.create(**analise_data)
+            if palavras_chave_data:
+                instance.analise.palavras_chave.clear()
+                for palavra_data in palavras_chave_data:
+                    palavra, _ = PalavraChave.objects.get_or_create(**palavra_data)
+                    instance.analise.palavras_chave.add(palavra)
+
+        instance.save()
+
+        # Handle assuntos
+        if assuntos_data:
+            instance.assuntos.clear()
+            for assunto_data in assuntos_data:
+                assunto, _ = Assunto.objects.get_or_create(**assunto_data)
+                instance.assuntos.add(assunto)
+
+
+        return instance
+

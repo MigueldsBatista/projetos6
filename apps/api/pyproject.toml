@@ -13,7 +13,9 @@ dependencies = [
     "hf>=1.5.0",
     "pandas>=3.0.1",
     "pypdf>=6.9.1",
-    "django-stubs[compatible-mypy]>=6.0.1",
+    "django-stubs>=6.0.1",
+    "djangorestframework-stubs>=3.16.8",
+    "tabulate>=0.10.0",
 ]
 
 [tool.uv.sources]

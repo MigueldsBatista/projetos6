@@ -1,27 +1,10 @@
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 
 
 class Classe(BaseModel):
     codigo: int
     nome: str
-
-
-class Sistema(BaseModel):
-    codigo: int
-    nome: str
-
-
-class Formato(BaseModel):
-    codigo: int
-    nome: str
-
-
-class ComplementosTabelado(BaseModel):
-    codigo: int
-    valor: int | None = None
-    nome: str
-    descricao: str | None = None
 
 
 class OrgaoJulgador(BaseModel):
@@ -42,25 +25,22 @@ class Assunto(BaseModel):
     nome: str
 
 
-class Source(BaseModel):
-    numero_processo: str = Field(..., alias="numeroProcesso")
+class Processo(BaseModel):
+    assuntos: list[Assunto]
     classe: Classe
-    sistema: Sistema
-    formato: Formato
-    tribunal: str
+    data_ajuizamento: str = Field(..., alias="dataAjuizamento")
     data_hora_ultima_atualizacao: str = Field(..., alias="dataHoraUltimaAtualizacao")
     grau: str
-    timestamp: str = Field(..., alias='@timestamp')
-    data_ajuizamento: str = Field(..., alias="dataAjuizamento")
-    movimentos: list[Movimento]
     id: str
-    nivel_sigilo: int = Field(..., alias="nivelSigilo")
+    # movimentos: list[Movimento]
+    numero_processo: str = Field(..., alias="numeroProcesso")
     orgao_julgador: OrgaoJulgador = Field(..., alias="orgaoJulgador")
-    assuntos: list[Assunto]
+    timestamp: str = Field(..., alias='@timestamp')
+    tribunal: str
 
 
 class SearchHit(BaseModel):
-    source: Source = Field(alias="_source")
+    source: Processo = Field(alias="_source")
 
 
 class SearchHits(BaseModel):
@@ -69,35 +49,3 @@ class SearchHits(BaseModel):
 
 class SearchResponse(BaseModel):
     hits: SearchHits
-
-
-# ------------------ RESUMIDO ------------------
-
-class MovimentoResumido(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-    nome: str
-    data_hora: str = Field(..., alias="dataHora")
-    orgao_julgador: str | None = Field(default=None, alias="orgaoJulgador")
-
-
-class ProcessoResumido(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-
-    numero_processo: str | None = Field(default=None, alias="numeroProcesso")
-    classe: str | None = None
-    # sistema: str | None = None
-    # formato: str | None = None
-    tribunal: str | None = None
-    data_hora_ultima_atualizacao: str | None = Field(default=None, alias="dataHoraUltimaAtualizacao")
-    grau: str | None = None
-    timestamp: str = Field(..., alias='@timestamp')
-    data_ajuizamento: str | None = Field(default=None, alias="dataAjuizamento")
-    id: str | None = None
-    orgao_julgador: str | None = Field(default=None, alias="orgaoJulgador")
-    assuntos: list[str] | None = None
-    movimentos: list[MovimentoResumido] | None = None
-
-
-class ProcessoResumidoResponse(BaseModel):
-    processos: list[ProcessoResumido]
-
