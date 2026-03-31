@@ -1,4 +1,6 @@
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -49,3 +51,8 @@ class SearchHits(BaseModel):
 
 class SearchResponse(BaseModel):
     hits: SearchHits
+
+
+class ProcessoResumo(BaseModel):
+    numero_processo: str
+    grau: str
