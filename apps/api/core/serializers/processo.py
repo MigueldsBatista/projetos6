@@ -40,24 +40,15 @@ class ProcessoSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data: dict):
-        assuntos_data = validated_data.pop("assuntos", [])
-        analise_data = validated_data.pop("analise", None)
-        orgao_julgador_data = validated_data.pop("orgao_julgador", None)
-
-        classe_codigo = validated_data.get("classe", None)
-        if classe_codigo:
-            classe, _ = Classe.objects.get_or_create(codigo=classe_codigo)
+        if classe_data := validated_data.pop("classe", None):
+            classe, _ = Classe.objects.get_or_create(**classe_data)
             validated_data["classe"] = classe
 
-        # Handle orgao_julgador
-        orgao_julgador: OrgaoJulgador | None = None
-        if orgao_julgador_data:
+        if orgao_julgador_data := validated_data.pop("orgao_julgador", None):
             orgao_julgador, _ = OrgaoJulgador.objects.get_or_create(**orgao_julgador_data)
             validated_data["orgao_julgador"] = orgao_julgador
 
-        # Handle analise
-        analise: Analise | None = None
-        if analise_data:
+        if analise_data := validated_data.pop("analise", None):
             palavras_chave_data = analise_data.pop("palavras_chave", [])
             analise = Analise.objects.create(**analise_data)
             for palavra_data in palavras_chave_data:
@@ -68,7 +59,7 @@ class ProcessoSerializer(serializers.ModelSerializer):
         processo = Processo.objects.create(**validated_data)
 
         # Handle assuntos
-        for assunto_data in assuntos_data:
+        for assunto_data in  validated_data.pop("assuntos", []):
             assunto, _ = Assunto.objects.get_or_create(**assunto_data)
             processo.assuntos.add(assunto)
 
