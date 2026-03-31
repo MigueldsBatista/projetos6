@@ -14,7 +14,7 @@ from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from core.serializers.processo import ProcessoResumoSerializer, ProcessoSerializer
+from core.serializers.processo_serializer import ProcessoResumoSerializer, ProcessoSerializer
 
 
 class ProcessoViewset(viewsets.ViewSet):

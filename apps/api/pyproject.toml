@@ -16,6 +16,7 @@ dependencies = [
     "django-stubs>=6.0.1",
     "djangorestframework-stubs>=3.16.8",
     "tabulate>=0.10.0",
+    "django-silk>=5.5.0",
 ]
 
 [tool.uv.sources]

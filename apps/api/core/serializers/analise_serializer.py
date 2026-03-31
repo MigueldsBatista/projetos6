@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.models.analise import Analise
-from core.serializers.palavras_chave import PalavraChaveSerializer
+from core.serializers.palavras_chave_serializer import PalavraChaveSerializer
 
 
 class AnaliseSerializer(serializers.ModelSerializer):

@@ -7,10 +7,10 @@ from core.models.classe import Classe
 from core.models.orgao_julgador import OrgaoJulgador
 from core.models.palavra_chave import PalavraChave
 from core.models.processo import Processo
-from core.serializers.analise import AnaliseSerializer
-from core.serializers.assunto import AssuntoSerializer
-from core.serializers.classe import ClasseSerializer
-from core.serializers.orgao_julgador import OrgaoJulgadorSerializer
+from core.serializers.analise_serializer import AnaliseSerializer
+from core.serializers.assunto_serializer import AssuntoSerializer
+from core.serializers.classe_serializer import ClasseSerializer
+from core.serializers.orgao_julgador_serializer import OrgaoJulgadorSerializer
 
 
 class ProcessoResumoSerializer(serializers.ModelSerializer):
@@ -56,10 +56,11 @@ class ProcessoSerializer(serializers.ModelSerializer):
                 analise.palavras_chave.add(palavra)
             validated_data["analise"] = analise
 
+        assuntos_data = validated_data.pop("assuntos", [])
         processo = Processo.objects.create(**validated_data)
 
         # Handle assuntos
-        for assunto_data in  validated_data.pop("assuntos", []):
+        for assunto_data in assuntos_data:
             assunto, _ = Assunto.objects.get_or_create(**assunto_data)
             processo.assuntos.add(assunto)
 

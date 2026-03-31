@@ -28,3 +28,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
+
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
