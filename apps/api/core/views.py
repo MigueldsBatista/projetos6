@@ -25,6 +25,6 @@ class ProcessoViewset(viewsets.ViewSet):
         input_serializer.is_valid(raise_exception=True)
 
         created_items = input_serializer.save()
-
+        print(created_items)
         output_serializer = ProcessoResumoSerializer(created_items, many=True)
         return Response(output_serializer.data, status=status.HTTP_200_OK)

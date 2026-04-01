@@ -3,9 +3,10 @@ from abc import ABC, abstractmethod
 from shared.logger import get_logger
 from shared.schemas.data_jud import SearchResponse
 
-from ingestion.utils import DATA_FOLDER
+from ingestion.utils import DATA_FOLDER, normalize_topic
 
 logger = get_logger("providers")
+
 
 class DataProvider(ABC):
     @abstractmethod
@@ -17,12 +18,13 @@ class DataProvider(ABC):
         import os
         data = self.get_data(topic)
         if data:
-            # Ensure DATA_FOLDER exists
             os.makedirs(DATA_FOLDER, exist_ok=True)
-            with open(DATA_FOLDER / f"processos_{topic.replace(' ', '_')}.json", "w", encoding="utf-8") as f:
+            with open(DATA_FOLDER / f"processos_{normalize_topic(topic)}.json", "w", encoding="utf-8") as f:
                 f.write(data.model_dump_json(ensure_ascii=False, indent=2))
-                logger.info(f"Resposta para '{topic}' salva em 'processos_{topic.replace(' ', '_')}.json'")
 
+                logger.info(f"Resposta para '{topic}' salva em 'processos_{normalize_topic(topic)}.json'")
+
+        return data
 
     def __init__(self, file_path: str):
         self.file_path = file_path
@@ -40,8 +42,7 @@ class FileDataProvider(DataProvider):
             return None
 
         if os.path.isdir(path):
-            safe_topic = topic.replace(' ', '_')
-            path = os.path.join(path, f"processos_{safe_topic}.json")
+            path = os.path.join(path, f"processos_{normalize_topic(topic)}.json")
 
         with open(path, encoding='utf-8') as f:
             data = json.load(f)
@@ -78,8 +79,8 @@ class APIDataProvider(DataProvider):
             timeout=30
         )
 
+        logger.error(f"API response: {response.content} - {response.text}")
         if not response.ok:
-            logger.error(f"API request failed: {response.status_code} {response.text}")
             return None
 
         try:

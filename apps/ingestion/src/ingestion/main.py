@@ -42,26 +42,18 @@ def mapear_processos(search_response: SearchResponse) -> list[dict]:
    for model in search_response.hits.hits:
         dump = model.source.model_dump()
 
-        try:
-            dump["data_ajuizamento"] = (
-                parse_date(model.source.data_ajuizamento)
-                .date()
-                .isoformat()
-            )
-        except Exception:
-            dump["data_ajuizamento"] = model.source.data_ajuizamento
-        try:
-            dump["data_hora_ultima_atualizacao"] = (
-                parse_date(model.source.data_hora_ultima_atualizacao)
-                .date()
-                .isoformat()
-            )
-        except Exception:
-            dump["data_hora_ultima_atualizacao"] = model.source.data_hora_ultima_atualizacao
-        try:
-            dump["@timestamp"] = parse_date(model.source.timestamp).isoformat()
-        except Exception:
-            dump["@timestamp"] = model.source.timestamp
+        dump["data_ajuizamento"] = (
+            parse_date(model.source.data_ajuizamento)
+            .date()
+            .isoformat()
+        )
+        dump["data_hora_ultima_atualizacao"] = (
+            parse_date(model.source.data_hora_ultima_atualizacao)
+            .date()
+            .isoformat()
+        )
+        dump["@timestamp"] = parse_date(model.source.timestamp).isoformat()
+
         result.append(dump)
 
    return result
