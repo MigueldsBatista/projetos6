@@ -72,6 +72,26 @@ def fetch_for_topic(provider: DataProvider, topic: str) -> list[dict]:
 
 def main():
     args = IngestionParser()
+
+    if args.pending_pdf:
+        submitter = ProcessSubmitter(pending_api_url=args.pending_api_url)
+        pendentes = submitter.fetch_pending_pdf()
+
+        if pendentes is None:
+            logger.error("Erro ao buscar pendencias de PDF na API")
+            return
+
+        logger.info(f"Pendencias de PDF encontradas: {len(pendentes)}")
+        for processo in pendentes:
+            logger.info(
+                "Disparando worker para processo %s grau %s",
+                processo.numero_processo,
+                processo.grau,
+            )
+            run_pipeline.delay(processo.numero_processo, processo.grau)
+
+        return
+
     provider = args.get_cli_provider()
     topics = get_topics()
 

@@ -13,6 +13,17 @@ class IngestionParser:
         parser.add_argument('--file-path', type=str, help='Caminho do arquivo JSON (para provider file)')
         parser.add_argument('--api-url', type=str, help='URL da API (para provider api)')
         parser.add_argument('--trigger', action='store_true', help='Disparar workers após ingestão')
+        parser.add_argument(
+            '--pending-pdf',
+            action='store_true',
+            help='Busca pendências de PDF na API e dispara o scraper para cada processo',
+        )
+        parser.add_argument(
+            '--pending-api-url',
+            type=str,
+            default='http://localhost:8000/api/processos/nao_possuem_pdf/',
+            help='Endpoint da API para listar processos sem PDF',
+        )
         self.args = parser.parse_args()
 
     def get_cli_provider(self) -> DataProvider:
@@ -26,3 +37,15 @@ class IngestionParser:
             provider = APIDataProvider(api_url)
 
         return provider
+
+    @property
+    def trigger(self) -> bool:
+        return bool(self.args.trigger)
+
+    @property
+    def pending_pdf(self) -> bool:
+        return bool(self.args.pending_pdf)
+
+    @property
+    def pending_api_url(self) -> str:
+        return str(self.args.pending_api_url)

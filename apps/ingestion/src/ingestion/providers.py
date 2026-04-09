@@ -44,6 +44,10 @@ class FileDataProvider(DataProvider):
         if os.path.isdir(path):
             path = os.path.join(path, f"processos_{normalize_topic(topic)}.json")
 
+        if not os.path.exists(path):
+            logger.warning(f"File not found for topic '{topic}': {path}")
+            return None
+
         with open(path, encoding='utf-8') as f:
             data = json.load(f)
             try:
@@ -72,12 +76,16 @@ class APIDataProvider(DataProvider):
                 }
             }
         }
-        response = requests.get(
-            url=self.api_url,
-            headers=headers,
-            json=query,
-            timeout=30
-        )
+        try:
+            response = requests.get(
+                url=self.api_url,
+                headers=headers,
+                json=query,
+                timeout=30,
+            )
+        except requests.exceptions.RequestException as exc:
+            logger.error(f"Failed to fetch topic '{topic}' from DataJud API: {exc}")
+            return None
 
         logger.error(f"API response: {response.content} - {response.text}")
         if not response.ok:

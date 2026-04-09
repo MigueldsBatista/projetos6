@@ -20,6 +20,20 @@ class ProcessoResumoSerializer(serializers.ModelSerializer):
         fields = ["numero_processo", "grau"]
 
 
+class ProcessoSemPdfResumoSerializer(serializers.ModelSerializer):
+    grau = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Processo
+        fields = ["numero_processo", "grau"]
+
+    def get_grau(self, obj: Processo) -> str:
+        raw = (obj.grau or "").strip().upper()
+        if raw.startswith("G") and len(raw) > 1:
+            return raw[1:]
+        return raw
+
+
 class ProcessoSerializer(serializers.ModelSerializer):
     classe = ClasseSerializer(required=False, allow_null=True)
     orgao_julgador = OrgaoJulgadorSerializer(required=False, allow_null=True)

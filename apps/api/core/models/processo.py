@@ -14,6 +14,7 @@ class Processo(models.Model):
     data_hora_ultima_atualizacao = models.DateField(blank=True, null=True)
     grau = models.CharField(max_length=32, blank=True) #G1 ou G2
     data_ajuizamento = models.DateField(blank=True, null=True)
+    pdf_url = models.URLField(blank=True, null=True)
     orgao_julgador = models.ForeignKey(OrgaoJulgador, on_delete=models.SET_NULL, blank=True, null=True)
     assuntos = models.ManyToManyField(Assunto, blank=True, default=list)
     analise = models.OneToOneField(Analise, on_delete=models.SET_NULL, blank=True, null=True)

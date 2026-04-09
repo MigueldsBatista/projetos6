@@ -1,6 +1,7 @@
 from datetime import date
 
 DEDUPLICAR_ENDPOINT = "/api/processos/deduplicar/"
+NAO_POSSUEM_PDF_ENDPOINT = "/api/processos/nao_possuem_pdf/"
 
 PROCESSO_NUMERO_1 = "00002564820255060171"
 PROCESSO_NUMERO_2 = "00002564820255060172"

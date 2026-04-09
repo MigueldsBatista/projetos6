@@ -1,7 +1,6 @@
 
-from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
 
 class Classe(BaseModel):
@@ -10,12 +9,16 @@ class Classe(BaseModel):
 
 
 class OrgaoJulgador(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     codigo_municipio_ibge: int | None = Field(default=None, alias="codigoMunicipioIBGE", description="Código do município no IBGE, se aplicável")
     codigo: int
     nome: str
 
 
 class Movimento(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     codigo: int
     nome: str
     data_hora: str = Field(..., alias="dataHora")
@@ -28,6 +31,8 @@ class Assunto(BaseModel):
 
 
 class Processo(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     assuntos: list[Assunto]
     classe: Classe
     data_ajuizamento: str = Field(..., alias="dataAjuizamento")
@@ -42,7 +47,7 @@ class Processo(BaseModel):
 
 
 class SearchHit(BaseModel):
-    source: Processo = Field(alias="_source")
+    source: Processo = Field(alias="_source", validation_alias=AliasChoices("_source", "source"))
 
 
 class SearchHits(BaseModel):

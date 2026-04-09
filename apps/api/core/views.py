@@ -35,9 +35,14 @@ from rest_framework.response import Response
 from core.serializers.processo_serializer import (
     ProcessoDeduplicarEntradaSerializer,
     ProcessoResumoSerializer,
+    ProcessoSemPdfResumoSerializer,
     ProcessoSerializer,
 )
-from core.services import filtrar_processos_faltantes
+from core.services import (
+    ProcessoSemPdfLookupError,
+    filtrar_processos_faltantes,
+    listar_processos_nao_possuem_pdf,
+)
 
 
 class ProcessoViewset(viewsets.ViewSet):
@@ -64,3 +69,20 @@ class ProcessoViewset(viewsets.ViewSet):
         output_serializer = ProcessoResumoSerializer(created_items, many=True)
 
         return Response(output_serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'])
+    def nao_possuem_pdf(self, request: Request):
+        try:
+            processos = listar_processos_nao_possuem_pdf()
+        except ProcessoSemPdfLookupError as exc:
+            return Response(
+                {
+                    "mensagem": "Falha ao consultar pendencias de PDF.",
+                    "detalhes": str(exc),
+                },
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        output_serializer = ProcessoSemPdfResumoSerializer(processos, many=True)
+        return Response(output_serializer.data, status=status.HTTP_200_OK)
+

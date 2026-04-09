@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "shared", # Para usar os Schemas ao validar o que recebe dos Workers e para salvar o caminho do PDF no S3.
+    "ingestion",
     "datasets>=4.6.1",
     "django>=6.0.3",
     "django-filter",
@@ -23,6 +24,7 @@ dependencies = [
 
 [tool.uv.sources]
 shared = { workspace = true }
+ingestion = { workspace = true }
 
 [tool.django-stubs]
 django_settings_module = "core.settings"

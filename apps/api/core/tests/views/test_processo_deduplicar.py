@@ -105,6 +105,34 @@ class TestProcessoViewsetDeduplicar(BaseProcessoViewsetTests):
         self.assertEqual(len(data), 1)
         self.assertTrue(any(item["numero_processo"] == PROCESSO_NUMERO_1 for item in data))
 
+    def test_given_existing_same_unique_key_with_newer_timestamp_when_post_deduplicar_then_filter_out(self):
+        api_client = self.make_api_client()
+        DataSetup.create_processo_existente(
+            numero_processo=PROCESSO_NUMERO_1,
+            data_hora_ultima_atualizacao=DATA_BASE,
+            tribunal="TRT6",
+            grau="G1",
+        )
+        payload = [
+            ProcessoPayloadBuilder()
+            .with_numero_processo(PROCESSO_NUMERO_1)
+            .with_data_atualizacao(DATA_NOVA)
+            .build()
+        ]
+
+        response = self.post_deduplicar(api_client, payload=payload)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), [])
+        self.assertEqual(
+            Processo.objects.filter(
+                numero_processo=PROCESSO_NUMERO_1,
+                tribunal="TRT6",
+                grau="G1",
+            ).count(),
+            1,
+        )
+
     def test_given_invalid_payload_when_post_deduplicar_then_return_400(self):
         api_client = self.make_api_client()
         payload = [{"tribunal": "TRT6", "grau": "G1"}]
@@ -116,21 +144,21 @@ class TestProcessoViewsetDeduplicar(BaseProcessoViewsetTests):
         self.assertIsInstance(body, list)
         self.assertIn("numero_processo", body[0])
 
-    def test_given_duplicate_items_in_same_request_when_post_deduplicar_then_return_400_and_create_none(self):
+    def test_given_duplicate_items_in_same_request_when_post_deduplicar_then_deduplicate_and_create_once(self):
         api_client = self.make_api_client()
         payload_item = ProcessoPayloadBuilder().build()
         payload = [payload_item, payload_item]
 
         response = self.post_deduplicar(api_client, payload=payload)
 
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
             Processo.objects.filter(
                 numero_processo=PROCESSO_NUMERO_1,
                 tribunal="TRT6",
                 grau="G1",
             ).count(),
-            0,
+            1,
         )
 
     def test_given_nested_relations_when_post_deduplicar_then_persist_related_entities(self):

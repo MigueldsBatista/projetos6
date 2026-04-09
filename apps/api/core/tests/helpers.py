@@ -59,10 +59,12 @@ class DataSetup:
         data_hora_ultima_atualizacao: date | None,
         tribunal: str = TRIBUNAL_TRT6,
         grau: str = GRAU_G1,
+        pdf_url: str | None = None,
     ) -> Processo:
         return Processo.objects.create(
             numero_processo=numero_processo,
             tribunal=tribunal,
             grau=grau,
             data_hora_ultima_atualizacao=data_hora_ultima_atualizacao,
+            pdf_url=pdf_url,
         )
