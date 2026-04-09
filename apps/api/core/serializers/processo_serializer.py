@@ -11,12 +11,14 @@ from core.serializers.analise_serializer import AnaliseSerializer
 from core.serializers.assunto_serializer import AssuntoSerializer
 from core.serializers.classe_serializer import ClasseSerializer
 from core.serializers.orgao_julgador_serializer import OrgaoJulgadorSerializer
+from core.types.processo_dict import ProcessoDict
 
 
 class ProcessoResumoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Processo
         fields = ["numero_processo", "grau"]
+
 
 class ProcessoSerializer(serializers.ModelSerializer):
     classe = ClasseSerializer(required=False, allow_null=True)
@@ -39,7 +41,7 @@ class ProcessoSerializer(serializers.ModelSerializer):
             "analise",
         ]
 
-    def create(self, validated_data: dict):
+    def create(self, validated_data: ProcessoDict):
         if classe_data := validated_data.pop("classe", None):
             classe, _ = Classe.objects.get_or_create(**classe_data)
             validated_data["classe"] = classe
@@ -103,6 +105,10 @@ class ProcessoSerializer(serializers.ModelSerializer):
                 assunto, _ = Assunto.objects.get_or_create(**assunto_data)
                 instance.assuntos.add(assunto)
 
-
         return instance
+
+
+class ProcessoDeduplicarEntradaSerializer(ProcessoSerializer):
+    class Meta(ProcessoSerializer.Meta):
+        validators = []
 

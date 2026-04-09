@@ -13,3 +13,6 @@ wheels/
 captcha_log/
 debug_captcha_page*.png
 juristcu.db
+
+.vscode/
+.env

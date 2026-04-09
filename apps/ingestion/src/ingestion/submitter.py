@@ -5,7 +5,7 @@ from shared.schemas.data_jud import ProcessoResumo
 logger = get_logger("submitter")
 
 class ProcessSubmitter:
-    def __init__(self, api_url: str = "http://localhost:8000/api/processos/bulk_create/"):
+    def __init__(self, api_url: str = "http://localhost:8000/api/processos/deduplicar/"):
         self.api_url = api_url
 
     def submit(self, processos: list[dict]) -> list[ProcessoResumo] | None:

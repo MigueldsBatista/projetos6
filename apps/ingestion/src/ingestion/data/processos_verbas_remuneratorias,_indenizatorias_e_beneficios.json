@@ -1,0 +1,266 @@
+{
+  "hits": {
+    "hits": [
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 1125,
+            "nome": "Ação Trabalhista - Rito Sumaríssimo"
+          },
+          "data_ajuizamento": "20240402144931",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:30:31.148000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00003361120245060312",
+          "numero_processo": "00003361120245060312",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2604106,
+            "codigo": 20681,
+            "nome": "CARUARU  - 02A VARA"
+          },
+          "timestamp": "2026-03-11T17:30:31.148000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 1125,
+            "nome": "Ação Trabalhista - Rito Sumaríssimo"
+          },
+          "data_ajuizamento": "20240213145226",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:52:17.648000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00001308220245060122",
+          "numero_processo": "00001308220245060122",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20708,
+            "nome": "PAULISTA  - 02A VARA"
+          },
+          "timestamp": "2026-03-11T17:52:17.648000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20240612113715",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:57:09.479000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00003348720245060232",
+          "numero_processo": "00003348720245060232",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2606200,
+            "codigo": 20687,
+            "nome": "GOIANA  - 02A VARA"
+          },
+          "timestamp": "2026-03-11T17:57:09.479000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 12374,
+            "nome": "Homologação da Transação Extrajudicial"
+          },
+          "data_ajuizamento": "20230905171228",
+          "data_hora_ultima_atualizacao": "2026-03-11T18:11:04.757000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00009245720235060181",
+          "numero_processo": "00009245720235060181",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2606804,
+            "codigo": 20689,
+            "nome": "IGARASSU  - 01A VARA"
+          },
+          "timestamp": "2026-03-11T18:11:04.757000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 12374,
+            "nome": "Homologação da Transação Extrajudicial"
+          },
+          "data_ajuizamento": "20230815173943",
+          "data_hora_ultima_atualizacao": "2026-03-11T19:01:33.115000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00004632920235060232",
+          "numero_processo": "00004632920235060232",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2606200,
+            "codigo": 20687,
+            "nome": "GOIANA  - 02A VARA"
+          },
+          "timestamp": "2026-03-11T19:01:33.115000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 12374,
+            "nome": "Homologação da Transação Extrajudicial"
+          },
+          "data_ajuizamento": "20240618084121",
+          "data_hora_ultima_atualizacao": "2026-03-11T19:11:02.426000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00005735720245060017",
+          "numero_processo": "00005735720245060017",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2611606,
+            "codigo": 20666,
+            "nome": "RECIFE  - 17A VARA"
+          },
+          "timestamp": "2026-03-11T19:11:02.426000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20080808060000",
+          "data_hora_ultima_atualizacao": "2026-03-12T14:42:38.179000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_01214003820085060121",
+          "numero_processo": "01214003820085060121",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20707,
+            "nome": "PAULISTA  - 01A VARA"
+          },
+          "timestamp": "2026-03-12T14:42:38.179000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20020306060000",
+          "data_hora_ultima_atualizacao": "2026-03-12T14:42:53.537000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00363002820025060121",
+          "numero_processo": "00363002820025060121",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20707,
+            "nome": "PAULISTA  - 01A VARA"
+          },
+          "timestamp": "2026-03-12T14:42:53.537000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20080808030000",
+          "data_hora_ultima_atualizacao": "2026-03-12T14:50:53.410000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_01217009720085060121",
+          "numero_processo": "01217009720085060121",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20707,
+            "nome": "PAULISTA  - 01A VARA"
+          },
+          "timestamp": "2026-03-12T14:50:53.410000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13831,
+              "nome": "Verbas Remuneratórias, Indenizatórias e Benefícios"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20090525030000",
+          "data_hora_ultima_atualizacao": "2026-03-12T14:51:16.466000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00718001420095060121",
+          "numero_processo": "00718001420095060121",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20707,
+            "nome": "PAULISTA  - 01A VARA"
+          },
+          "timestamp": "2026-03-12T14:51:16.466000Z",
+          "tribunal": "TRT6"
+        }
+      }
+    ]
+  }
+}

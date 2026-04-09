@@ -1,0 +1,18 @@
+{
+    "mcpServers": {
+        "mcp-obsidian": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/home/miguel/workspace/mcp-obsidian",
+                "run",
+                "mcp-obsidian"
+            ],
+            "env": {
+                "OBSIDIAN_API_KEY":"69f4ff3ef0c929ac36b9c825891f8758004df8652cde64825b252121fd24d242",
+                "OBSIDIAN_HOST": "172.26.127.0",
+                "OBSIDIAN_PORT": "27124"
+            }
+        }
+    }
+}

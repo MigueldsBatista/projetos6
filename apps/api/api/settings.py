@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'EXCEPTION_HANDLER': 'my_project.my_app.utils.custom_exception_handler'
 }
 
 MIDDLEWARE = [

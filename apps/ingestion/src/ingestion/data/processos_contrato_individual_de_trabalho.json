@@ -13,17 +13,17 @@
             "codigo": 12374,
             "nome": "Homologação da Transação Extrajudicial"
           },
-          "data_ajuizamento": "20230201152713",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:11:25.895000Z",
+          "data_ajuizamento": "20230309105513",
+          "data_hora_ultima_atualizacao": "2026-03-11T16:58:18.768000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00000719720235060003",
-          "numero_processo": "00000719720235060003",
+          "id": "TRT6_G1_00001635720235060009",
+          "numero_processo": "00001635720235060009",
           "orgao_julgador": {
             "codigo_municipio_ibge": 2611606,
-            "codigo": 20652,
-            "nome": "RECIFE  - 03A VARA"
+            "codigo": 20658,
+            "nome": "RECIFE  - 09A VARA"
           },
-          "timestamp": "2026-03-11T19:11:25.895000Z",
+          "timestamp": "2026-03-11T16:58:18.768000Z",
           "tribunal": "TRT6"
         }
       },
@@ -39,17 +39,43 @@
             "codigo": 1125,
             "nome": "Ação Trabalhista - Rito Sumaríssimo"
           },
-          "data_ajuizamento": "20231214103352",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:14:43.174000Z",
+          "data_ajuizamento": "20220802173253",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:06:47.367000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00008118620235060413",
-          "numero_processo": "00008118620235060413",
+          "id": "TRT6_G1_00007670420225060122",
+          "numero_processo": "00007670420225060122",
           "orgao_julgador": {
-            "codigo_municipio_ibge": 2611101,
-            "codigo": 20712,
-            "nome": "PETROLINA  - 03A VARA"
+            "codigo_municipio_ibge": 2610707,
+            "codigo": 20708,
+            "nome": "PAULISTA  - 02A VARA"
           },
-          "timestamp": "2026-03-11T19:14:43.174000Z",
+          "timestamp": "2026-03-11T17:06:47.367000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13707,
+              "nome": "Contrato Individual de Trabalho"
+            }
+          ],
+          "classe": {
+            "codigo": 1125,
+            "nome": "Ação Trabalhista - Rito Sumaríssimo"
+          },
+          "data_ajuizamento": "20230520155705",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:25:18.134000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00004611020235060313",
+          "numero_processo": "00004611020235060313",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2604106,
+            "codigo": 20682,
+            "nome": "CARUARU  - 03A VARA"
+          },
+          "timestamp": "2026-03-11T17:25:18.134000Z",
           "tribunal": "TRT6"
         }
       },
@@ -65,95 +91,17 @@
             "codigo": 985,
             "nome": "Ação Trabalhista - Rito Ordinário"
           },
-          "data_ajuizamento": "20211214003424",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:17:56.871000Z",
+          "data_ajuizamento": "20220830105228",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:41:05.278000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00008753020215060005",
-          "numero_processo": "00008753020215060005",
+          "id": "TRT6_G1_00008417520225060181",
+          "numero_processo": "00008417520225060181",
           "orgao_julgador": {
-            "codigo_municipio_ibge": 2611606,
-            "codigo": 20654,
-            "nome": "RECIFE  - 05A VARA"
+            "codigo_municipio_ibge": 2606804,
+            "codigo": 20689,
+            "nome": "IGARASSU  - 01A VARA"
           },
-          "timestamp": "2026-03-11T19:17:56.871000Z",
-          "tribunal": "TRT6"
-        }
-      },
-      {
-        "source": {
-          "assuntos": [
-            {
-              "codigo": 13707,
-              "nome": "Contrato Individual de Trabalho"
-            }
-          ],
-          "classe": {
-            "codigo": 1125,
-            "nome": "Ação Trabalhista - Rito Sumaríssimo"
-          },
-          "data_ajuizamento": "20230628170843",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:19:05.889000Z",
-          "grau": "G1",
-          "id": "TRT6_G1_00003918420235060412",
-          "numero_processo": "00003918420235060412",
-          "orgao_julgador": {
-            "codigo_municipio_ibge": 2611101,
-            "codigo": 20711,
-            "nome": "PETROLINA  - 02A VARA"
-          },
-          "timestamp": "2026-03-11T19:19:05.889000Z",
-          "tribunal": "TRT6"
-        }
-      },
-      {
-        "source": {
-          "assuntos": [
-            {
-              "codigo": 13707,
-              "nome": "Contrato Individual de Trabalho"
-            }
-          ],
-          "classe": {
-            "codigo": 1126,
-            "nome": "Ação Trabalhista - Rito Sumário (Alçada)"
-          },
-          "data_ajuizamento": "20231005120310",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:19:57.884000Z",
-          "grau": "G1",
-          "id": "TRT6_G1_00006334320235060412",
-          "numero_processo": "00006334320235060412",
-          "orgao_julgador": {
-            "codigo_municipio_ibge": 2611101,
-            "codigo": 20711,
-            "nome": "PETROLINA  - 02A VARA"
-          },
-          "timestamp": "2026-03-11T19:19:57.884000Z",
-          "tribunal": "TRT6"
-        }
-      },
-      {
-        "source": {
-          "assuntos": [
-            {
-              "codigo": 13707,
-              "nome": "Contrato Individual de Trabalho"
-            }
-          ],
-          "classe": {
-            "codigo": 1125,
-            "nome": "Ação Trabalhista - Rito Sumaríssimo"
-          },
-          "data_ajuizamento": "20220211100848",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:19:59.674000Z",
-          "grau": "G1",
-          "id": "TRT6_G1_00000548420225060233",
-          "numero_processo": "00000548420225060233",
-          "orgao_julgador": {
-            "codigo_municipio_ibge": 2606200,
-            "codigo": 20688,
-            "nome": "GOIANA  - 03A VARA"
-          },
-          "timestamp": "2026-03-11T19:19:59.674000Z",
+          "timestamp": "2026-03-11T17:41:05.278000Z",
           "tribunal": "TRT6"
         }
       },
@@ -169,43 +117,17 @@
             "codigo": 985,
             "nome": "Ação Trabalhista - Rito Ordinário"
           },
-          "data_ajuizamento": "20230717120001",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:24:47.420000Z",
+          "data_ajuizamento": "20230809171011",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:42:37.038000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00005932720235060003",
-          "numero_processo": "00005932720235060003",
+          "id": "TRT6_G1_00006630520235060016",
+          "numero_processo": "00006630520235060016",
           "orgao_julgador": {
             "codigo_municipio_ibge": 2611606,
-            "codigo": 20652,
-            "nome": "RECIFE  - 03A VARA"
+            "codigo": 20665,
+            "nome": "RECIFE  - 16A VARA"
           },
-          "timestamp": "2026-03-11T19:24:47.420000Z",
-          "tribunal": "TRT6"
-        }
-      },
-      {
-        "source": {
-          "assuntos": [
-            {
-              "codigo": 13707,
-              "nome": "Contrato Individual de Trabalho"
-            }
-          ],
-          "classe": {
-            "codigo": 1126,
-            "nome": "Ação Trabalhista - Rito Sumário (Alçada)"
-          },
-          "data_ajuizamento": "20231020002144",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:27:30.123000Z",
-          "grau": "G1",
-          "id": "TRT6_G1_00008752020235060018",
-          "numero_processo": "00008752020235060018",
-          "orgao_julgador": {
-            "codigo_municipio_ibge": 2611606,
-            "codigo": 20667,
-            "nome": "RECIFE  - 18A VARA"
-          },
-          "timestamp": "2026-03-11T19:27:30.123000Z",
+          "timestamp": "2026-03-11T17:42:37.038000Z",
           "tribunal": "TRT6"
         }
       },
@@ -221,17 +143,17 @@
             "codigo": 12374,
             "nome": "Homologação da Transação Extrajudicial"
           },
-          "data_ajuizamento": "20230308164537",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:28:19.534000Z",
+          "data_ajuizamento": "20230321090012",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:47:36.171000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00001441820235060020",
-          "numero_processo": "00001441820235060020",
+          "id": "TRT6_G1_00001970820235060017",
+          "numero_processo": "00001970820235060017",
           "orgao_julgador": {
             "codigo_municipio_ibge": 2611606,
-            "codigo": 20669,
-            "nome": "RECIFE  - 20A VARA"
+            "codigo": 20666,
+            "nome": "RECIFE  - 17A VARA"
           },
-          "timestamp": "2026-03-11T19:28:19.534000Z",
+          "timestamp": "2026-03-11T17:47:36.171000Z",
           "tribunal": "TRT6"
         }
       },
@@ -244,20 +166,98 @@
             }
           ],
           "classe": {
-            "codigo": 12374,
-            "nome": "Homologação da Transação Extrajudicial"
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
           },
-          "data_ajuizamento": "20230802083225",
-          "data_hora_ultima_atualizacao": "2026-03-11T19:06:41.949000Z",
+          "data_ajuizamento": "20220809201022",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:50:19.815000Z",
           "grau": "G1",
-          "id": "TRT6_G1_00007973020235060146",
-          "numero_processo": "00007973020235060146",
+          "id": "TRT6_G1_00006642120225060017",
+          "numero_processo": "00006642120225060017",
           "orgao_julgador": {
-            "codigo_municipio_ibge": 2607901,
-            "codigo": 83888,
-            "nome": "JABOATÃO DOS GUARARAPES  - 06A VARA"
+            "codigo_municipio_ibge": 2611606,
+            "codigo": 20666,
+            "nome": "RECIFE  - 17A VARA"
           },
-          "timestamp": "2026-03-11T19:06:41.949000Z",
+          "timestamp": "2026-03-11T17:50:19.815000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13707,
+              "nome": "Contrato Individual de Trabalho"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20211104162944",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:50:51.281000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00012858520215060103",
+          "numero_processo": "00012858520215060103",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2609600,
+            "codigo": 20704,
+            "nome": "OLINDA  - 03A VARA"
+          },
+          "timestamp": "2026-03-11T17:50:51.281000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13707,
+              "nome": "Contrato Individual de Trabalho"
+            }
+          ],
+          "classe": {
+            "codigo": 1125,
+            "nome": "Ação Trabalhista - Rito Sumaríssimo"
+          },
+          "data_ajuizamento": "20230502160413",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:51:37.858000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00003131220235060341",
+          "numero_processo": "00003131220235060341",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2610905,
+            "codigo": 20709,
+            "nome": "PESQUEIRA  - 01A VARA"
+          },
+          "timestamp": "2026-03-11T17:51:37.858000Z",
+          "tribunal": "TRT6"
+        }
+      },
+      {
+        "source": {
+          "assuntos": [
+            {
+              "codigo": 13707,
+              "nome": "Contrato Individual de Trabalho"
+            }
+          ],
+          "classe": {
+            "codigo": 985,
+            "nome": "Ação Trabalhista - Rito Ordinário"
+          },
+          "data_ajuizamento": "20221110094833",
+          "data_hora_ultima_atualizacao": "2026-03-11T17:52:44.214000Z",
+          "grau": "G1",
+          "id": "TRT6_G1_00008686820225060016",
+          "numero_processo": "00008686820225060016",
+          "orgao_julgador": {
+            "codigo_municipio_ibge": 2611606,
+            "codigo": 20665,
+            "nome": "RECIFE  - 16A VARA"
+          },
+          "timestamp": "2026-03-11T17:52:44.214000Z",
           "tribunal": "TRT6"
         }
       }

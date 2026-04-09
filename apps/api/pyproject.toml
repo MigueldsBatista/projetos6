@@ -18,6 +18,7 @@ dependencies = [
     "tabulate>=0.10.0",
     "django-silk>=5.5.0",
     "pytest>=9.0.2",
+    "pytest-django>=4.11.1",
 ]
 
 [tool.uv.sources]
@@ -25,3 +26,8 @@ shared = { workspace = true }
 
 [tool.django-stubs]
 django_settings_module = "core.settings"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "api.settings"
+pythonpath = ["."]
+testpaths = ["core/tests"]

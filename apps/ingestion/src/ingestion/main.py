@@ -70,8 +70,6 @@ def fetch_for_topic(provider: DataProvider, topic: str) -> list[dict]:
     return mapear_processos(search_response)
 
 
-
-
 def main():
     args = IngestionParser()
     provider = args.get_cli_provider()
